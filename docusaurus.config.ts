@@ -36,12 +36,10 @@ const config: Config = {
       en: {
         label: "English",
         direction: "ltr",
-        baseUrl: "/vef-framework-go-docs/en/",
       },
       "zh-Hans": {
         label: "简体中文",
         direction: "ltr",
-        baseUrl: "/vef-framework-go-docs/",
       },
     },
   },
