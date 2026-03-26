@@ -202,7 +202,7 @@ CREATE INDEX idx_sys_user__username__include ON sys_user (username) INCLUDE (nam
 | 编码 | `VARCHAR(32)` | 各类业务编码 |
 | URL / 文件路径 | `VARCHAR(128)` | 头像、链接、邮箱等 |
 | 简介 / 长文本描述 | `VARCHAR(2048)` | 机构简介、失败原因等 |
-| 备注 | `VARCHAR(256)` | 所有表的备注字段统一长度 |
+| 备注 | `VARCHAR(512)` | 所有表的备注字段统一长度 |
 | 布尔 | `BOOLEAN` | 搭配 `NOT NULL DEFAULT FALSE` |
 | 排序 | `INTEGER` | 搭配 `NOT NULL DEFAULT 0` |
 | 小范围整数 | `SMALLINT` | 如步长、宽度等 |
@@ -251,7 +251,7 @@ CREATE TABLE {模块前缀}_{实体名} (
     -- ④ 通用可选字段（按需选用，顺序为：is_active → sort_order → remark → meta）
     is_active                BOOLEAN NOT NULL DEFAULT FALSE,
     sort_order               INTEGER NOT NULL DEFAULT 0,
-    remark                   VARCHAR(256),
+    remark                   VARCHAR(512),
     meta                     JSONB,
 
     -- ⑤ 约束（顺序：PK → UK → CK → FK）
@@ -464,7 +464,7 @@ CREATE TABLE sys_user (
     created_at               TIMESTAMP NOT NULL DEFAULT LOCALTIMESTAMP,
     username                 VARCHAR(32) NOT NULL,
     is_active                BOOLEAN NOT NULL DEFAULT FALSE,
-    remark                   VARCHAR(256),
+    remark                   VARCHAR(512),
     meta                     JSONB,
     ...
 );
@@ -554,7 +554,7 @@ CREATE TABLE sys_role (
     updated_by               VARCHAR(32) NOT NULL DEFAULT 'system',
     name                     VARCHAR(32) NOT NULL,
     is_active                BOOLEAN NOT NULL DEFAULT FALSE,
-    remark                   VARCHAR(256),
+    remark                   VARCHAR(512),
     meta                     JSONB,
 
     CONSTRAINT pk_sys_role PRIMARY KEY (id),

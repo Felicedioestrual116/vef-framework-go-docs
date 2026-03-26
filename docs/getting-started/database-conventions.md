@@ -202,7 +202,7 @@ CREATE INDEX idx_sys_user__username__include ON sys_user (username) INCLUDE (nam
 | business code | `VARCHAR(32)` | all kinds of business codes |
 | URL or file path | `VARCHAR(128)` | avatar paths, links, email, and similar values |
 | profile or long description | `VARCHAR(2048)` | organization profile, failure reason, and similar long descriptions |
-| remark | `VARCHAR(256)` | unified length for remark fields |
+| remark | `VARCHAR(512)` | unified length for remark fields |
 | boolean | `BOOLEAN` | pair with `NOT NULL DEFAULT FALSE` |
 | sort order | `INTEGER` | pair with `NOT NULL DEFAULT 0` |
 | small-range integer | `SMALLINT` | for step values, widths, and similar fields |
@@ -251,7 +251,7 @@ CREATE TABLE {模块前缀}_{实体名} (
     -- ④ 通用可选字段（按需选用，顺序为：is_active → sort_order → remark → meta）
     is_active                BOOLEAN NOT NULL DEFAULT FALSE,
     sort_order               INTEGER NOT NULL DEFAULT 0,
-    remark                   VARCHAR(256),
+    remark                   VARCHAR(512),
     meta                     JSONB,
 
     -- ⑤ 约束（顺序：PK → UK → CK → FK）
@@ -464,7 +464,7 @@ CREATE TABLE sys_user (
     created_at               TIMESTAMP NOT NULL DEFAULT LOCALTIMESTAMP,
     username                 VARCHAR(32) NOT NULL,
     is_active                BOOLEAN NOT NULL DEFAULT FALSE,
-    remark                   VARCHAR(256),
+    remark                   VARCHAR(512),
     meta                     JSONB,
     ...
 );
@@ -554,7 +554,7 @@ CREATE TABLE sys_role (
     updated_by               VARCHAR(32) NOT NULL DEFAULT 'system',
     name                     VARCHAR(32) NOT NULL,
     is_active                BOOLEAN NOT NULL DEFAULT FALSE,
-    remark                   VARCHAR(256),
+    remark                   VARCHAR(512),
     meta                     JSONB,
 
     CONSTRAINT pk_sys_role PRIMARY KEY (id),
