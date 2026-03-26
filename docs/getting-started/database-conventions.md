@@ -1,10 +1,11 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
+title: Database Conventions
 ---
 
-# Database Naming Conventions
+# Database Conventions
 
-This page defines the database naming and DDL conventions for VEF applications.
+This page defines the mandatory database naming and DDL conventions for VEF application projects.
 
 ## 1. Overall Structure
 
@@ -66,7 +67,7 @@ CREATE TABLE sys_user (
 ### 2.1 General Rules
 
 - all names must use lowercase `snake_case`
-- database reserved words must not be used as bare names; if unavoidable, they must be quoted with double quotes in SQL, for example `"group"` or `"key"`
+- database reserved words should be avoided as bare names whenever possible, but not at the cost of semantic accuracy or naming consistency; when a reserved word is still the best standard-compliant name, it must be quoted with double quotes in SQL, for example `"group"` or `"key"`
 - names must be self-explanatory and convey meaning without requiring external documentation
 - full words must be preferred over arbitrary abbreviations, for example `organization` instead of `org`, and `department` instead of `dept`
 - only widely understood abbreviations may be used by default; any other abbreviation must first be agreed on by the team
@@ -207,22 +208,22 @@ CREATE INDEX idx_sys_user__username__include ON sys_user (username) INCLUDE (nam
 | small-range integer | `SMALLINT` | for step values, widths, and similar fields |
 | timestamp | `TIMESTAMP` | no time zone; use `LOCALTIMESTAMP` |
 | date | `DATE` | date-only scenarios such as birth dates |
-| enum | `VARCHAR(n)` | use with a `CHECK` constraint; choose length based on actual enum values |
+| dictionary value or enum | `VARCHAR(8)` | unified length; use with a `CHECK` constraint or dictionary table |
 | metadata | `JSONB` | extensible structured metadata |
 | large text | `TEXT` | unrestricted text such as configuration values |
 
-### 3.2 Enum Handling
+### 3.2 Dictionary and Enum Handling
 
-PostgreSQL `ENUM` types must not be used. Use `VARCHAR(n)` plus a `CHECK` constraint instead. The length must match the actual enum values.
+PostgreSQL `ENUM` types must not be used. Dictionary values and enum fields must always use `VARCHAR(8)`, together with a `CHECK` constraint or a dictionary-table constraint. Do not size the `VARCHAR` length according to the individual values.
 
 ```sql
--- VARCHAR(1): single-character enum
-gender    VARCHAR(1) NOT NULL DEFAULT 'U',
+-- All dictionary or enum fields use VARCHAR(8)
+gender    VARCHAR(8) NOT NULL DEFAULT 'U',
 CONSTRAINT ck_sys_user__gender CHECK (gender = ANY (ARRAY['M', 'F', 'U']))
 ```
 
 ```sql
--- VARCHAR(8): longer enum values
+-- Longer enum values still use VARCHAR(8)
 overflow_strategy  VARCHAR(8) NOT NULL DEFAULT 'error',
 CONSTRAINT ck_sys_sequence_rule__overflow_strategy CHECK (overflow_strategy = ANY (ARRAY['error', 'reset', 'extend']))
 ```
@@ -607,5 +608,5 @@ CREATE INDEX idx_sys_user_role__role_id ON sys_user_role (role_id);
 
 ## See also
 
-- [Application Naming Conventions](./application-naming-conventions) for Go code and API naming rules
+- [Application Project Conventions](./application-project-conventions) for Go code and API naming rules
 - [Models](../guide/models) for the interaction between Go field names, JSON tags, and database columns

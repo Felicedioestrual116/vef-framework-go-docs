@@ -1,10 +1,11 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
+title: 数据库规范
 ---
 
-# 数据库命名规范
+# 数据库规范
 
-本页定义 VEF 应用的数据库命名与 DDL 规范。
+本页定义 VEF 应用项目必须遵循的数据库命名与 DDL 规范。
 
 ## 1. 总体结构
 
@@ -66,7 +67,7 @@ CREATE TABLE sys_user (
 ### 2.1 通用规则
 
 - 所有名称必须使用小写 `snake_case`
-- 禁止使用数据库保留字作为裸名称；如不可避免，SQL 中必须使用双引号引用，例如 `"group"`、`"key"`
+- 应尽量避免使用数据库保留字作为裸名称，但不得为了规避关键字而牺牲语义准确性或命名规范一致性；如确需使用，SQL 中必须使用双引号引用，例如 `"group"`、`"key"`
 - 名称必须见名知意，阅读者不应依赖外部文档才能理解其用途
 - 优先使用完整英文单词，不得随意缩写，例如 `organization` 而不是 `org`，`department` 而不是 `dept`
 - 仅允许使用广泛认知的常见缩写；其他缩写必须先在团队内达成共识
@@ -207,22 +208,22 @@ CREATE INDEX idx_sys_user__username__include ON sys_user (username) INCLUDE (nam
 | 小范围整数 | `SMALLINT` | 如步长、宽度等 |
 | 时间戳 | `TIMESTAMP` | 不带时区，使用 `LOCALTIMESTAMP` |
 | 日期 | `DATE` | 仅日期场景，如出生日期 |
-| 枚举 | `VARCHAR(n)` | 配合 `CHECK` 约束使用，长度根据实际枚举值决定 |
+| 数据字典值 / 枚举 | `VARCHAR(8)` | 统一长度，配合 `CHECK` 约束或字典表使用 |
 | 元数据 | `JSONB` | 可扩展的结构化附加信息 |
 | 大文本 | `TEXT` | 无长度限制的文本，如配置值 |
 
-### 3.2 枚举处理
+### 3.2 数据字典 / 枚举处理
 
-不得使用 PostgreSQL `ENUM` 类型。统一使用 `VARCHAR(n)` 搭配 `CHECK` 约束，长度根据实际枚举值决定。
+不得使用 PostgreSQL `ENUM` 类型。数据字典值与枚举字段统一使用 `VARCHAR(8)`，并搭配 `CHECK` 约束或字典表约束进行收敛，不再根据具体值长度单独定义 `VARCHAR` 长度。
 
 ```sql
--- VARCHAR(1)：单字符枚举
-gender    VARCHAR(1) NOT NULL DEFAULT 'U',
+-- All dictionary or enum fields use VARCHAR(8)
+gender    VARCHAR(8) NOT NULL DEFAULT 'U',
 CONSTRAINT ck_sys_user__gender CHECK (gender = ANY (ARRAY['M', 'F', 'U']))
 ```
 
 ```sql
--- VARCHAR(8)：多值枚举
+-- Multi-value enum still uses VARCHAR(8)
 overflow_strategy  VARCHAR(8) NOT NULL DEFAULT 'error',
 CONSTRAINT ck_sys_sequence_rule__overflow_strategy CHECK (overflow_strategy = ANY (ARRAY['error', 'reset', 'extend']))
 ```
@@ -607,5 +608,5 @@ CREATE INDEX idx_sys_user_role__role_id ON sys_user_role (role_id);
 
 ## 延伸阅读
 
-- [应用代码命名规范](./application-naming-conventions)：Go 代码与 API 命名规则
+- [应用项目规范](./application-project-conventions)：Go 代码与 API 命名规则
 - [模型](../guide/models)：Go 字段名、JSON tag 与数据库列名之间的关系

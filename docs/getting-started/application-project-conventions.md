@@ -1,10 +1,21 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
+title: Application Project Conventions
 ---
 
-# Application Naming Conventions
+# Application Project Conventions
 
-This page defines the naming rules for VEF application code.
+This page defines the mandatory project conventions for VEF application codebases.
+
+It applies only to application projects built with VEF Framework Go. It does not define development conventions for the framework repository itself.
+
+:::danger
+All new application code MUST follow this page. When an existing area is modified, the touched files MUST remain compliant within the edited scope. These rules are mandatory, not optional suggestions.
+:::
+
+:::tip
+Read [Project Structure](./project-structure) first for the baseline module layout. Read this page for the naming rules, API naming rules, and project-level conventions that every VEF application MUST follow.
+:::
 
 These rules combine:
 
@@ -293,7 +304,7 @@ Do not use:
 
 ## See also
 
-- [Database Naming Conventions](./database-naming-conventions) for schema-level naming rules
+- [Database Conventions](./database-conventions) for schema-level naming rules
 - [Routing](../guide/routing) for request identifier structure and endpoint exposure
 - [Custom Handlers](../guide/custom-handlers) for RPC action to handler method resolution
 - [Models](../guide/models) for field, JSON tag, and column naming interplay

@@ -1,10 +1,21 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
+title: 应用项目规范
 ---
 
-# 应用代码命名规范
+# 应用项目规范
 
-本页定义 VEF 应用代码应遵循的命名规则。
+本页定义 VEF 应用项目必须遵循的项目级规范。
+
+它只面向基于 VEF Framework Go 构建的应用项目，不用于约束框架仓库自身的开发方式。
+
+:::danger
+所有新的应用代码都必须遵循本页规范。已有区域一旦被修改，改动范围内的文件也必须保持符合规范。这些要求不是建议，而是必须执行的项目标准。
+:::
+
+:::tip
+先阅读 [项目结构](./project-structure) 了解基础目录组织，再阅读本页掌握命名、API 组织和项目层面的强制规则。
+:::
 
 这些规则综合了两部分来源：
 
@@ -292,7 +303,7 @@ type User struct {
 
 ## 延伸阅读
 
-- [数据库命名规范](./database-naming-conventions)：schema 层命名规则
+- [数据库规范](./database-conventions)：schema 层命名规则
 - [路由](../guide/routing)：请求标识结构与路由暴露方式
 - [自定义处理器](../guide/custom-handlers)：RPC action 到 handler 方法的解析规则
 - [模型](../guide/models)：字段名、JSON tag 与列名之间的配合方式
